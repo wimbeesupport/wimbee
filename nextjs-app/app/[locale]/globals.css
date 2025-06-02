@@ -102,3 +102,13 @@
     box-shadow: 0 0 0 0 rgba(15, 183, 0, 0);
   }
 }
+
+header {
+  backface-visibility: hidden;
+  will-change: transform;
+}
+
+header {
+  transition: transform 0.3s ease-in-out;
+  will-change: transform;
+}

@@ -19,6 +19,7 @@ import contact from './contact'
 import contactPage from './contact-page'
 import caseStudiesPage from './case-studies-page'
 import blogSection from './blog-section'
+import internationalizedArrayText from './internationalizedArrayText'
 
 export const schemaTypes = [
   settings,
@@ -42,4 +43,5 @@ export const schemaTypes = [
   sector,
   blockContent,
   internationalizedBlockContent,
+  internationalizedArrayText,
 ]

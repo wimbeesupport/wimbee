@@ -67,11 +67,6 @@ export default defineType({
               title: 'Dropdown Title',
               type: 'internationalizedArrayString',
             }),
-            defineField({
-              name: 'dropdownImage',
-              title: 'Dropdown Image',
-              type: 'image',
-            }),
           ],
         }),
         defineField({
@@ -93,16 +88,26 @@ export default defineType({
           ],
         }),
         defineField({
-          name: 'boostersLink',
-          title: 'Boosters Link',
-          type: 'internationalizedArrayString',
-          initialValue: 'Boosters',
-        }),
-        defineField({
-          name: 'aboutLink',
-          title: 'About Link',
-          type: 'internationalizedArrayString',
-          initialValue: 'About',
+          name: 'links',
+          title: 'Pages Links',
+          type: 'array',
+          of: [
+            {
+              type: 'object',
+              fields: [
+                defineField({
+                  name: 'title',
+                  title: 'Title',
+                  type: 'internationalizedArrayString',
+                }),
+                defineField({
+                  name: 'href',
+                  title: 'Link',
+                  type: 'string',
+                }),
+              ],
+            },
+          ],
         }),
       ],
     }),

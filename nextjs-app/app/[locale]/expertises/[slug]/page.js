@@ -9,11 +9,7 @@ import TranslationsProvider from "@/components/TranslationsProvider";
 import { locales } from "@/lib/locales";
 import mapSlugsWithLocales from "@/lib/mapSlugsWithLocales";
 import { sanityFetch } from "@/sanity/client";
-import {
-  allExpertisesQuery,
-  caseStudiesSectionQuery,
-  singleExpertiseQuery,
-} from "@/sanity/groq";
+import { allExpertisesQuery, singleExpertiseQuery } from "@/sanity/groq";
 import { groq } from "next-sanity";
 import Head from "next/head";
 import { notFound, redirect } from "next/navigation";
@@ -66,12 +62,6 @@ async function page({ params: { locale, slug } }) {
     tags: ["expertise"],
   });
 
-  const caseStudiesSection = await sanityFetch({
-    query: caseStudiesSectionQuery,
-    qParams: { slug, locale },
-    tags: ["case-studies-section", "case-study"],
-  });
-
   const localesWithSlugsMap = mapSlugsWithLocales(
     expertise?._translations ?? [], // Sanity translations array
     { currentLocalization: { [locale]: slug } }, // Current slug and locale
@@ -107,7 +97,7 @@ async function page({ params: { locale, slug } }) {
           />
         </div>
         <SplitSection
-          content={caseStudiesSection}
+          content={expertise?.casesSection}
           type="case-studies"
           variant="primary"
         />

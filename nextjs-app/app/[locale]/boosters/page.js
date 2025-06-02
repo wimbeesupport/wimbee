@@ -11,6 +11,7 @@ import TranslationsProvider from "@/components/TranslationsProvider";
 import initTranslations from "@/app/i18n";
 import { groq } from "next-sanity";
 import Head from "next/head";
+import Link from "next/link";
 
 // Dynamic metadata
 export async function generateMetadata({ params: { locale } }) {
@@ -70,7 +71,7 @@ async function page({ params: { locale } }) {
             </h1>
             <div className="flex flex-col items-start gap-6 lg:flex-row">
               {data.products.map((product, index) => (
-                <div key={index} className="w-full">
+                <Link href={product.url || "/"} key={index} className="w-full">
                   <Image
                     src={product.imageUrl}
                     alt={`Gif image from wimbee`}
@@ -84,7 +85,7 @@ async function page({ params: { locale } }) {
                   <p className="text-lg text-primary-500">
                     {product.description}
                   </p>
-                </div>
+                </Link>
               ))}
             </div>
           </div>

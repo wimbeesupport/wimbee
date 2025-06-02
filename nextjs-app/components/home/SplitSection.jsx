@@ -117,7 +117,7 @@ function SplitSection({
     >
       <div className="mx-auto max-w-[1568px] px-4 py-8 lg:pb-20 lg:pt-12">
         <div className="mb-8 flex items-start justify-between lg:mb-14 2xl:mb-28">
-          <Tag bg={`${variant === "primary" && "light"}`}>{content.tag}</Tag>
+          <Tag bg={`${variant === "primary" && "light"}`}>{content?.tag}</Tag>
         </div>
 
         <div
@@ -128,7 +128,7 @@ function SplitSection({
           }`}
         >
           <div className="w-full text-primary-800 2xl:w-[720px]">
-            {content.items.map((post, index) => {
+            {content?.items?.map((post, index) => {
               const categoryStyles =
                 variant === "primary" && hoveredIndex !== index
                   ? "bg-light-200 !text-[#5D99FC]"
@@ -180,7 +180,7 @@ function SplitSection({
             })}
           </div>
           <Image
-            src={content.imageUrl}
+            src={content?.imageUrl || "/images/france.jpg"}
             width={600}
             height={600}
             alt="Introduction section of wimbee GIF"

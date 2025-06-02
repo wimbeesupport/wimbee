@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { useState } from "react";
 
 export function DesktopMenuItem({ item }) {
@@ -42,20 +41,7 @@ export function DesktopMenuItem({ item }) {
           <span>{item.dropDown.title}</span>
         </div>
 
-        <div
-          className={`flex items-start ${item.type === "sectors" ? "flex-col" : "gap-6"}`}
-        >
-          <div className="flex-1">
-            {item.type === "expertises" && (
-              <Image
-                src={item.dropDown.image}
-                width={300}
-                height={300}
-                alt="wimbee GIF"
-                className="mt-2 h-48 min-w-48 object-cover"
-              />
-            )}
-          </div>
+        <div className={`flex flex-col items-start`}>
           <div className="flex max-w-md flex-col text-primary-800">
             {item.items.map((subItem, index) => (
               <Link

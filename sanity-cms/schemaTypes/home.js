@@ -80,20 +80,11 @@ export default defineType({
           name: 'description',
           title: 'Description',
           type: 'internationalizedArrayString',
-          initialValue:
-            "At Wimbee, our passion for innovation drives excellence in digital transformation, data management, and AI. We've become a trusted leader by blending deep technical expertise with a clear understanding of our clients' business needs.",
         }),
+
         defineField({
-          name: 'image',
-          title: 'Section Image',
-          type: 'image',
-          options: {
-            hotspot: true,
-          },
-        }),
-        defineField({
-          name: 'links',
-          title: 'Links',
+          name: 'blocks',
+          title: 'Introduction Blocks',
           type: 'array',
           of: [
             {
@@ -105,9 +96,30 @@ export default defineType({
                   type: 'internationalizedArrayString',
                 }),
                 defineField({
+                  name: 'description',
+                  title: 'Description',
+                  type: 'internationalizedArrayString',
+                }),
+                defineField({
                   name: 'url',
                   title: 'URL',
                   type: 'string',
+                }),
+                defineField({
+                  name: 'staticImage',
+                  title: 'Static Hub Image',
+                  type: 'image',
+                  options: {
+                    hotspot: true,
+                  },
+                }),
+                defineField({
+                  name: 'hoverImage',
+                  title: 'Hover Block Image',
+                  type: 'image',
+                  options: {
+                    hotspot: true,
+                  },
                 }),
               ],
             },

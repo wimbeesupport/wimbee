@@ -35,6 +35,39 @@ export default defineType({
       type: 'datetime',
     }),
     defineField({
+      name: 'casesSection',
+      title: 'Case Studies Section',
+      type: 'object',
+      fields: [
+        defineField({
+          name: 'tag',
+          title: 'section Tag',
+          type: 'string',
+          initialValue: 'CASE STUDIES',
+        }),
+        defineField({
+          name: 'image',
+          title: 'Image',
+          type: 'image',
+          options: {
+            hotspot: true,
+          },
+        }),
+        defineField({
+          name: 'items',
+          type: 'array',
+          title: 'Case Studies',
+          of: [
+            {
+              type: 'reference',
+              to: [{type: 'case-study'}],
+            },
+          ],
+          validation: (Rule) => Rule.required().min(1),
+        }),
+      ],
+    }),
+    defineField({
       name: 'seo',
       title: 'SEO Settings',
       type: 'object',
@@ -47,7 +80,7 @@ export default defineType({
         defineField({
           name: 'description',
           title: 'Description',
-          type: 'internationalizedArrayString',
+          type: 'string',
         }),
       ],
     }),

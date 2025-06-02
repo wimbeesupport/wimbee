@@ -47,6 +47,21 @@ export default defineType({
               type: 'internationalizedArrayString',
             }),
           ],
+          preview: {
+            select: {
+              title: 'text',
+            },
+            prepare(selection) {
+              const {title} = selection
+              // If the title is an array of objects, join them into a readable string
+              if (Array.isArray(title)) {
+                return {
+                  title: title.map((item) => item.value || '').join(', '),
+                }
+              }
+              return {title: title}
+            },
+          },
         },
       ],
     }),
@@ -81,6 +96,21 @@ export default defineType({
                   type: 'internationalizedArrayString',
                 }),
               ],
+              preview: {
+                select: {
+                  title: 'text',
+                },
+                prepare(selection) {
+                  const {title} = selection
+                  // If the title is an array of objects, join them into a readable string
+                  if (Array.isArray(title)) {
+                    return {
+                      title: title.map((item) => item.value || '').join(', '),
+                    }
+                  }
+                  return {title: title}
+                },
+              },
             },
           ],
         }),
@@ -116,6 +146,21 @@ export default defineType({
                   type: 'internationalizedArrayString',
                 }),
               ],
+              preview: {
+                select: {
+                  title: 'feature',
+                },
+                prepare(selection) {
+                  const {title} = selection
+                  // If the title is an array of objects, join them into a readable string
+                  if (Array.isArray(title)) {
+                    return {
+                      title: title.map((item) => item.value || '').join(', '),
+                    }
+                  }
+                  return {title: title}
+                },
+              },
             },
           ],
         }),

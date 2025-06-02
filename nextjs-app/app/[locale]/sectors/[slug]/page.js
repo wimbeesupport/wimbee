@@ -103,7 +103,7 @@ async function page({ params: { locale, slug } }) {
           <SingleContent type="sectors" name="Sectors" content={sector} />
         </div>
         <SplitSection
-          content={caseStudiesSection}
+          content={sector?.casesSection}
           type="case-studies"
           variant="primary"
         />
