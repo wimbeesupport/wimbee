@@ -20,6 +20,8 @@ import contactPage from './contact-page'
 import caseStudiesPage from './case-studies-page'
 import blogSection from './blog-section'
 import internationalizedArrayText from './internationalizedArrayText'
+import legalPage from './legalPage'
+import link from './link'
 
 export const schemaTypes = [
   settings,
@@ -33,6 +35,7 @@ export const schemaTypes = [
   contactPage,
   caseStudiesSection,
   blogSection,
+  legalPage,
   contact,
   newsletter,
   footer,
@@ -44,4 +47,5 @@ export const schemaTypes = [
   blockContent,
   internationalizedBlockContent,
   internationalizedArrayText,
+  link,
 ]

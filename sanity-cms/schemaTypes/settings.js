@@ -111,5 +111,11 @@ export default defineType({
         }),
       ],
     }),
+    defineField({
+      name: 'footerLinks',
+      title: 'Footer Links',
+      type: 'array',
+      of: [{ type: 'link' }],
+    }),
   ],
 })

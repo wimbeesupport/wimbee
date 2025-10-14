@@ -5,6 +5,9 @@ import i18nConfig from "@/i18nConfig";
 import { dir } from "i18next";
 import { settingsQuery } from "@/sanity/groq";
 import { sanityFetch } from "@/sanity/client";
+import { cookies } from "next/headers";
+import Script from "next/script";
+import CookieConsent from "@/components/CookieConsent";
 
 export const modernGothic = localFont({
   src: [
@@ -64,6 +67,10 @@ export function generateStaticParams() {
 }
 
 export default function RootLayout({ children, params: { locale } }) {
+  const consent = cookies().get("cookie-consent")?.value;
+  const initialOpen = consent !== "granted" && consent !== "denied";
+  const policyHref = `/${locale}/legal-page`;
+
   return (
     <html lang={locale} dir={dir(locale)}>
       <body
@@ -71,6 +78,7 @@ export default function RootLayout({ children, params: { locale } }) {
         className={`${modernGothic.variable} ${modernGothicMono.variable} bg-light-200 font-main antialiased`}
       >
         {children}
+        <CookieConsent locale={locale} initialOpen={initialOpen} policyHref={policyHref} />
       </body>
     </html>
   );

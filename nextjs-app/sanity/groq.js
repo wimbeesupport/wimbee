@@ -122,6 +122,12 @@ export const casestudiesPageQuery = groq`*[_type == "case-studies-page"][0]{
   }
 }`;
 
+export const legalPageQuery = groq`*[_type == "legalPage"][0]{
+  "title": coalesce(title[$locale], title.en),
+  "content": coalesce(content[$locale], content.en),
+  "slug": slug.current
+}`;
+
 export const careersQuery = groq`*[_type == "careers"][0]{
   "tag": coalesce(tag[_key == $locale][0].value, tag[_key == "en"][0].value),
    "title": coalesce(title[_key == $locale][0].value, title[_key == "en"][0].value),
