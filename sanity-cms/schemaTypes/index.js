@@ -21,6 +21,7 @@ import caseStudiesPage from './case-studies-page'
 import blogSection from './blog-section'
 import internationalizedArrayText from './internationalizedArrayText'
 import legalPage from './legalPage'
+import privacyPolicy from './PrivacyPolicy'
 import link from './link'
 
 export const schemaTypes = [
@@ -36,6 +37,7 @@ export const schemaTypes = [
   caseStudiesSection,
   blogSection,
   legalPage,
+  privacyPolicy,
   contact,
   newsletter,
   footer,
