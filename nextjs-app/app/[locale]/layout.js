@@ -69,7 +69,7 @@ export function generateStaticParams() {
 export default function RootLayout({ children, params: { locale } }) {
   const consent = cookies().get("cookie-consent")?.value;
   const initialOpen = consent !== "granted" && consent !== "denied";
-  const policyHref = `/${locale}/legal-page`;
+  const policyHref = `/${locale}/privacy-policy`;
 
   return (
     <html lang={locale} dir={dir(locale)}>
