@@ -6,71 +6,78 @@ import {
   allSectorsQuery,
 } from "@/sanity/groq";
 
-const locales = ["en", "fr"]; // Add your locales here
+const locales = ["en", "fr"];
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://wimbeetech.com";
+
+const localePath = (locale, path = "") => {
+  const seg = path ? `/${path.replace(/^\/+/, "")}` : "";
+  return `${baseUrl}${locale === "en" ? "" : `/${locale}`}${seg}`;
+};
+
+const alternatesFor = (path = "") => ({
+  languages: Object.fromEntries(
+    locales.map((l) => [l, localePath(l, path)])
+  ),
+});
+
+const staticRoutes = [
+  "",
+  "about",
+  "boosters",
+  "careers",
+  "ecosystems",
+  "contactUs",
+  "blog",
+  "case-studies",
+  "legal-page",
+  "privacy-policy",
+  "expertises",
+  "sectors",
+];
+
 
 export default async function sitemap() {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://wimbeetech.com";
 
-  const routes = [
-    "",
-    "/boosters",
-    "/about",
-    "/careers",
-    "/ecosystems",
-    "/contactUs",
-  ];
-
-  const staticPages = locales.flatMap((locale) =>
-    routes.map((route) => ({
-      url: `${baseUrl}${locale === "en" ? "" : `/${locale}`}${route}`,
+  const staticPages = staticRoutes.flatMap((route) =>
+    locales.map((locale) => ({
+      url: localePath(locale, route),
       lastModified: new Date(),
       changeFrequency: route === "" ? "monthly" : "weekly",
-      priority: route === "" ? 1 : 0.9,
-    })),
+      priority: route === "" ? 1.0 : 0.9,
+      alternates: alternatesFor(route),
+    }))
   );
 
-  const posts = await sanityFetch({
-    query: allPostsQuery,
-    tags: ["post", "blog"],
-  });
+  const [posts, caseStudies, expertises, sectors] = await Promise.all([
+    sanityFetch({ query: allPostsQuery, tags: ["post", "blog"] }),
+    sanityFetch({ query: allCasestudiesquery, tags: ["case-study"] }),
+    sanityFetch({ query: allExpertisesQuery, tags: ["expertise"] }),
+    sanityFetch({ query: allSectorsQuery, tags: ["sector"] }),
+  ]);
 
-  const caseStudies = await sanityFetch({
-    query: allCasestudiesquery,
-    tags: ["case-study"],
-  });
-
-  const expertises = await sanityFetch({
-    query: allExpertisesQuery,
-    tags: ["expertise"],
-  });
-
-  const sectors = await sanityFetch({
-    query: allSectorsQuery,
-    tags: ["sector"],
-  });
 
   const dynamicPages = [
-    ...posts.map((post) => ({
-      url: `${baseUrl}${post.language === "en" ? "" : `/${post.language}`}/blog/${post.slug}`,
-      lastModified: new Date(post._updatedAt),
+    ...posts.map((p) => ({
+      url: localePath(p.language ?? "en", `blog/${p.slug}`),
+      lastModified: new Date(p._updatedAt ?? Date.now()),
       changeFrequency: "weekly",
       priority: 0.7,
     })),
-    ...caseStudies.map((caseStudy) => ({
-      url: `${baseUrl}${caseStudy.language === "en" ? "" : `/${caseStudy.language}`}/case-studies/${caseStudy.slug}`,
-      lastModified: new Date(caseStudy._updatedAt),
+    ...caseStudies.map((c) => ({
+      url: localePath(c.language ?? "en", `case-studies/${c.slug}`),
+      lastModified: new Date(c._updatedAt ?? Date.now()),
       changeFrequency: "weekly",
       priority: 0.7,
     })),
-    ...expertises.map((expertise) => ({
-      url: `${baseUrl}${expertise.language === "en" ? "" : `/${expertise.language}`}/expertises/${expertise.slug}`,
-      lastModified: new Date(expertise._updatedAt),
+    ...expertises.map((e) => ({
+      url: localePath(e.language ?? "en", `expertises/${e.slug}`),
+      lastModified: new Date(e._updatedAt ?? Date.now()),
       changeFrequency: "weekly",
       priority: 0.7,
     })),
-    ...sectors.map((sector) => ({
-      url: `${baseUrl}${sector.language === "en" ? "" : `/${sector.language}`}/sectors/${sector.slug}`,
-      lastModified: new Date(sector._updatedAt),
+    ...sectors.map((s) => ({
+      url: localePath(s.language ?? "en", `sectors/${s.slug}`),
+      lastModified: new Date(s._updatedAt ?? Date.now()),
       changeFrequency: "weekly",
       priority: 0.7,
     })),

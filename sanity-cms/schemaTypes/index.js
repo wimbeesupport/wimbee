@@ -23,6 +23,7 @@ import internationalizedArrayText from './internationalizedArrayText'
 import legalPage from './legalPage'
 import privacyPolicy from './PrivacyPolicy'
 import link from './link'
+import seo from './seo'
 
 export const schemaTypes = [
   settings,
@@ -50,4 +51,5 @@ export const schemaTypes = [
   internationalizedBlockContent,
   internationalizedArrayText,
   link,
+  seo,
 ]
