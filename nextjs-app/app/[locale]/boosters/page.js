@@ -77,7 +77,7 @@ async function page({ params: { locale } }) {
                     alt={`Gif image from wimbee`}
                     width={1200}
                     height={1200}
-                    className="mb-4 h-[720px] w-full"
+                    className="mb-4 h-[720px] w-full object-cover"
                   />
                   <p className="font-mono text-lg uppercase text-[#0F6FFF]">
                     {product.name}

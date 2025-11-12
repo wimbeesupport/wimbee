@@ -4,16 +4,39 @@ import { useForm } from "react-hook-form";
 import { Button } from "./ui/button";
 import { useTranslation } from "react-i18next";
 
+import useWeb3Forms from "@web3forms/react";
+
 function NewsletterForm({ data }) {
   const { t } = useTranslation();
+
+  const methods = useForm({
+    mode: "onTouched",
+    projectTypes: [],
+  });
 
   const {
     register,
     handleSubmit,
-    formState: { errors },
-  } = useForm();
+    reset,
+    formState: { errors, isSubmitting },
+  } = methods;
 
-  const onSubmit = (data) => console.log(data);
+  // Access Key is in the .env file
+  const apiKey = process.env.NEXT_PUBLIC_EMAIL_ACCESS_KEY;
+
+  const { submit: onSubmit } = useWeb3Forms({
+    access_key: apiKey,
+    settings: {
+      from_name: "New_Newsletter_Signup_WIMBEETECH.COM",
+      subject: "New_Newsletter_Signup_WIMBEETECH.COM",
+      message:
+        "New newsletter subscription from Wimbee website. Subscriber details:", // Custom message
+    },
+    onSuccess: (msg, data) => {
+      reset();
+    },
+    onError: (msg, data) => {},
+  });
 
   return (
     <form className="lg:min-w-[720px]" onSubmit={handleSubmit(onSubmit)}>
@@ -42,9 +65,13 @@ function NewsletterForm({ data }) {
 
             <Button
               type="submit"
-              className="h-auto rounded-custom bg-[#97CAFE] px-1 py-0 text-xs text-primary-700 hover:bg-primary-800 hover:text-primary-400 lg:px-1 lg:text-lg"
+              className="min-w-44 max-h-7 disabled:pointer-events-auto disabled:cursor-not-allowed rounded-custom bg-[#97CAFE] px-1 py-0 text-xs text-primary-700 hover:bg-primary-800 hover:text-primary-400 lg:px-1 lg:text-lg"
             >
-              {data.buttonText}
+              {isSubmitting ? (
+                <span className="spinner-mini" />
+              ) : (
+                data?.buttonText
+              )}
             </Button>
           </div>
         </div>

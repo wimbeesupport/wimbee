@@ -6,12 +6,12 @@ async function NavigationWrapper({ locale = "en" }) {
   const nav = await sanityFetch({
     query: navigationQuery,
     qParams: { locale },
-    tags: ["navigation", "sector", "expertise"],
+    tags: ["settings", "sector", "expertise"],
   });
 
   const menu = [
     {
-      title: "Expertises",
+      title: nav?.navigation?.expertisesLink?.title || "Expertises",
       type: "expertises",
       items:
         nav?.navigation?.navExpertises.map((item) => ({
@@ -23,7 +23,7 @@ async function NavigationWrapper({ locale = "en" }) {
       },
     },
     {
-      title: "Sectors",
+      title: nav?.navigation?.sectorsLink?.title || "Sectors",
       type: "sectors",
       items:
         nav?.navigation?.navSectors.map((item) => ({

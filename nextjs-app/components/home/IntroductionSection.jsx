@@ -38,6 +38,8 @@ function IntroductionSection({ content }) {
                 }
                 alt={`Image of ${block.title} from wimbee`}
                 fill
+                unoptimized={block.hoverImage && hoveredIndex === index} // Don't optimize GIFs
+                priority={index === 0} // Add priority loading for the first image
                 className="rounded-custom object-cover"
               />
             </div>

@@ -19,7 +19,7 @@ async function Newsletter({ locale = "en" }) {
           {data?.socials?.map((social, index) => (
             <li key={index}>
               <Link
-                href="#"
+                href={social?.url || "#"}
                 className="text-primary-700 transition-all hover:text-primary-800"
               >
                 {social?.title}
