@@ -76,7 +76,7 @@ export const myPortableTextComponents = {
     h3: ({ children, node }) => (
       <h3
         id={node?._key}
-        className="mb-10 font-main text-3xl font-medium text-primary-800"
+        className="mb-10 font-main text-2xl font-medium text-primary-800"
       >
         {children}
       </h3>
@@ -202,7 +202,7 @@ export const MiniPortableText = {
     h3: ({ children, node }) => (
       <h3
         id={node?._key}
-        className="mx-auto mb-10 max-w-4xl font-main text-3xl font-medium text-primary-800"
+        className="mx-auto mb-10 max-w-3xl font-main text-3xl font-medium text-primary-800"
       >
         {children}
       </h3>

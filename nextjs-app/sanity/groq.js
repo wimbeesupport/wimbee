@@ -88,6 +88,7 @@ export const aboutQuery = groq`*[_type == "about"][0]{
 export const boostersquery = groq`*[_type == "boosters"][0] {
   "tag": coalesce(tag[_key == $locale][0].value, tag[_key == "en"][0].value),
   "title": coalesce(title[_key == $locale][0].value, title[_key == "en"][0].value),
+  "description": coalesce(description[_key == $locale][0].value, description[_key == "en"][0].value),
   products[] {
     "name": coalesce(name[_key == $locale][0].value, name[_key == "en"][0].value),
     "description": coalesce(description[$locale], description["en"]),
@@ -445,3 +446,11 @@ export const allSectorsQuery = groq`
       language,
     }
   `;
+
+export const notFoundPageQuery = groq`*[_type == "notFoundPage"][0]{
+  "title": coalesce(title[_key == $locale][0].value, title[_key == "en"][0].value),
+  "subtitle": coalesce(subtitle[_key == $locale][0].value, subtitle[_key == "en"][0].value),
+  "buttonLabel": coalesce(buttonLabel[_key == $locale][0].value, buttonLabel[_key == "en"][0].value),
+  "svgUrl": illustration.asset->url
+}`
+

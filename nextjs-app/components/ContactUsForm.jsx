@@ -59,57 +59,76 @@ function ContactUsForm({ data }) {
 
   return (
     <form
-      className="mx-auto flex max-w-2xl flex-col gap-4"
+      className="mx-auto flex max-w-2xl flex-col gap-0"
       onSubmit={handleSubmit(onSubmit)}
     >
-      {data?.inputs.map((item, index) => (
-        <div key={index} className="flex flex-col gap-6 bg-light-200 p-2">
-          <label className="mb-6 font-mono text-xs uppercase text-primary-700 lg:text-base">
-            {item.label}
-          </label>
-          {item.type !== "textarea" ? (
-            <input
-              type={item.type}
-              placeholder={
-                errors[item.label]
-                  ? errors[item.label].message
-                  : item.placeHolder
-              }
-              className={`flex-1 bg-light-200 text-lg font-medium focus:outline-none lg:text-xl ${
-                errors[item.label]
-                  ? "placeholder:text-[#FF0000]"
-                  : "text-[#222] placeholder:text-gray-400"
-              }`}
-              {...register(item.label, {
-                required: `${item.label} ${t("required")}*`,
-              })}
-              aria-invalid={errors[item.label] ? "true" : "false"}
-            />
-          ) : (
-            <textarea
-              name={item.label}
-              ref={textareaRef}
-              onInput={handleInput}
-              rows={1} // Set initial rows to 1
-              style={{ minHeight: "1.5em" }} // Adjust minHeight to match the text size
-              className={`bg-light-200 resize-none overflow-hidden text-lg font-medium  focus:outline-none lg:text-xl lg:placeholder:text-2xl ${
-                errors[item.label]
-                  ? "placeholder:text-[#FF0000]"
-                  : "text-[#222] placeholder:text-gray-400"
-              }`}
-              placeholder={
-                errors[item.label]
-                  ? errors[item.label].message
-                  : item.placeHolder
-              }
-              {...register(item.label, {
-                required: `${item.label} ${t("required")}*`,
-              })}
-              aria-invalid={errors[item.label] ? "true" : "false"}
-            />
-          )}
-        </div>
-      ))}
+      {data?.inputs.map((item, index) => {
+  const isTextarea = item.type === "textarea";
+  const isCompact =
+    (item?.type === "text" && (index === 0 || index === 1)) || item?.type === "email";
+
+  // zero gap wrapper, no extra spacing
+  const wrapperClass = "flex flex-col gap-0 pb-3";
+
+  // label outside, no margin
+  const labelClass = "font-mono text-xs uppercase text-primary-700 lg:text-sm mb-0 pb-1";
+
+  // dense inputs; textarea stays taller
+  const inputClass = [
+    "w-full font-medium focus:outline-none",
+    isCompact ? "h-8 px-3 text-xs leading-tight" : "h-9 px-3 text-sm",
+    "text-[#222] !placeholder:text-transparent",
+    // remove any inherited large text
+    "!text-xs lg:!text-xs"
+  ].join(" ");
+
+  return (
+    <div key={index} className={wrapperClass}>
+      <label className={labelClass}>{item.label}</label>
+
+      {/* box only around the field; no outer margin */}
+      <div className="rounded-md bg-light-200">
+        {!isTextarea ? (
+          <input
+            type={item.type}
+            placeholder={item.placeHolder}
+            className={inputClass}
+            {...register(item.label, { required: `${item.label} ${t("required")}*` })}
+            aria-invalid={errors[item.label] ? "true" : "false"}
+          />
+        ) : (
+          <textarea
+            name={item.label}
+            ref={textareaRef}
+            onInput={handleInput}
+            rows={4}
+            style={{ minHeight: "12rem" }}
+            placeholder={item.placeHolder}
+            className={[
+              "w-full resize-none overflow-hidden",
+              "px-3 py-3",
+              "text-base lg:text-lg",
+              "leading-6 font-medium",
+              "focus:outline-none focus:ring-2 focus:ring-primary-800/30",
+              "!placeholder:text-transparent",
+              "text-[#222]"
+            ].join(" ")}
+            {...register(item.label, {
+              required: `${item.label} ${t("required")}*`,
+            })}
+            aria-invalid={errors[item.label] ? "true" : "false"}
+          />
+        )}
+      </div>
+
+      {errors[item.label] && (
+        <p className="mt-1 text-[11px] leading-none text-red-500">{errors[item.label]?.message}</p>
+      )}
+    </div>
+  );
+})}
+
+
       <Button
         disabled={isSubmitting}
         className="ml-auto min-w-44 max-h-7 disabled:bg-primary-800/85 h-auto w-fit disabled:pointer-events-auto disabled:cursor-not-allowed rounded-custom bg-primary-800 px-2  text-lg text-primary-400 hover:bg-primary-800/95"

@@ -1,19 +1,87 @@
 import Link from "next/link";
+import { headers } from "next/headers";
+import { sanityFetch } from "@/sanity/client";
+import { notFoundPageQuery } from "@/sanity/groq";
 
-function NotFound() {
+const SUPPORTED_LOCALES = ["en", "fr"];
+
+function getLocaleFromPath(pathname) {
+  if (!pathname) return "en";
+
+  const pathWithoutQuery = pathname.split("?")[0];
+  const segments = pathWithoutQuery.split("/").filter(Boolean);
+  const first = segments[0];
+
+  if (SUPPORTED_LOCALES.includes(first)) {
+    return first;
+  }
+
+  return "en";
+}
+
+export default async function NotFound() {
+  // Get current path from headers (Next 14)
+  const headersList = headers();
+  const nextUrl = headersList.get("next-url") || "/";
+  const locale = getLocaleFromPath(nextUrl);
+
+  // Fetch content from Sanity
+  const data = await sanityFetch({
+    query: notFoundPageQuery,
+    qParams: { locale },
+    tags: ["notFound"],
+  });
+
+  const fallbackTexts =
+    locale === "fr"
+      ? {
+          title: "Cette page est introuvable 😓",
+          subtitle:
+            "La page que vous cherchez n'existe pas ou a été déplacée.",
+          buttonLabel: "Retour à l'accueil",
+        }
+      : {
+          title: "This page could not be found 😓",
+          subtitle:
+            "The page you're looking for doesn't exist or has been moved.",
+          buttonLabel: "Go back home",
+        };
+
+  const title = data?.title || fallbackTexts.title;
+  const subtitle = data?.subtitle || fallbackTexts.subtitle;
+  const buttonLabel = data?.buttonLabel || fallbackTexts.buttonLabel;
+  const illustrationUrl = data?.svgUrl;
+
+  const homeHref = locale === "en" ? "/" : `/${locale}`;
+
   return (
-    <main className="mt-4 h-screen space-y-6 px-4 py-72 text-center text-primary-800">
-      <h1 className="mb-14 text-5xl font-semibold">
-        This page could not be found 😓
+    <main className="flex min-h-screen flex-col items-center justify-center bg-light-300 px-4 py-24 text-center text-primary-800">
+      {illustrationUrl && (
+        <div className="mb-10 w-full max-w-md">
+          <img
+            src={illustrationUrl}
+            alt={title}
+            className="mx-auto h-auto w-full max-w-xs lg:max-w-md"
+          />
+        </div>
+      )}
+
+      <h1 className="mb-6 text-3xl font-semibold lg:text-5xl">
+        {title}
       </h1>
+
+      {subtitle && (
+        <p className="mb-10 max-w-xl text-base text-primary-700 lg:text-lg">
+          {subtitle}
+        </p>
+      )}
+
       <Link
-        href="/"
+        href={homeHref}
         className="inline-block w-fit rounded-md bg-primary-800 px-6 py-3 text-lg text-primary-400 transition-all duration-300 hover:bg-primary-800/95"
       >
-        Go back home
+        {buttonLabel}
       </Link>
     </main>
   );
 }
-
-export default NotFound;

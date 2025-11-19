@@ -67,27 +67,38 @@ async function page({ params: { locale } }) {
             </div>
 
             <h1 className="mb-8 text-titleSmall text-primary-800 lg:mb-14 lg:text-titleMedium 2xl:mb-24 2xl:text-titleLarge">
-              {data.title}
+              {data.description}
             </h1>
-            <div className="flex flex-col items-start gap-6 lg:flex-row">
+
+            <div className="flex flex-col gap-6">
               {data.products.map((product, index) => (
-                <Link href={product.url || "/"} key={index} className="w-full">
-                  <Image
-                    src={product.imageUrl}
-                    alt={`Gif image from wimbee`}
-                    width={1200}
-                    height={1200}
-                    className="mb-4 h-[720px] w-full object-cover"
-                  />
-                  <p className="font-mono text-lg uppercase text-[#0F6FFF]">
-                    {product.name}
-                  </p>
-                  <p className="text-lg text-primary-500">
-                    {product.description}
-                  </p>
+                <Link
+                  href={product.url || "/"}
+                  key={index}
+                  className="flex w-full items-center gap-4 rounded-xl border border-light-500 bg-white px-4 py-3 transition hover:shadow-md"
+                >
+                  <div className="flex-shrink-0">
+                    <Image
+                      src={product.imageUrl}
+                      alt={`Gif image from wimbee`}
+                      width={320}
+                      height={320}
+                      className="h-40 w-40 rounded-lg object-cover sm:h-40 sm:w-40 md:h-40 md:w-40"
+                    />
+                  </div>
+
+                  <div className="flex flex-1 flex-col gap-1">
+                    <p className="font-mono text-base uppercase text-[#0F6FFF] sm:text-lg">
+                      {product.name}
+                    </p>
+                    <p className="text-sm text-primary-500 sm:text-base">
+                      {product.description}
+                    </p>
+                  </div>
                 </Link>
               ))}
             </div>
+
           </div>
         </section>
         <Newsletter locale={locale} />

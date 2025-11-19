@@ -88,6 +88,24 @@ export default defineType({
           ],
         }),
         defineField({
+          name: 'boosterLink',
+          title: 'Booster Link',
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'title',
+              title: 'Title',
+              type: 'internationalizedArrayString',
+              initialValue: 'Sectors',
+            }),
+            defineField({
+              name: 'dropdownTitle',
+              title: 'Dropdown Title',
+              type: 'internationalizedArrayString',
+            }),
+          ],
+        }),
+        defineField({
           name: 'links',
           title: 'Pages Links',
           type: 'array',

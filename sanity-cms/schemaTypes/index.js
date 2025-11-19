@@ -24,6 +24,7 @@ import legalPage from './legalPage'
 import privacyPolicy from './PrivacyPolicy'
 import link from './link'
 import seo from './seo'
+import notFoundPage from './notFoundPage';
 
 export const schemaTypes = [
   settings,
@@ -52,4 +53,5 @@ export const schemaTypes = [
   internationalizedArrayText,
   link,
   seo,
+  notFoundPage,
 ]

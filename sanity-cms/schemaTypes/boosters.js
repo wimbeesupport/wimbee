@@ -26,6 +26,12 @@ export default defineType({
       initialValue: "Innovation isn't just a goal—it's how we lead.",
     }),
     defineField({
+      name: 'description',
+      title: 'Main Description',
+      type: 'internationalizedArrayString',
+      initialValue: "Innovation isn't just a goal—it's how we lead.",
+    }),
+    defineField({
       name: 'products',
       title: 'Product Cards',
       type: 'array',

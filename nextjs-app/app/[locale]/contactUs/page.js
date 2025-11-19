@@ -69,7 +69,6 @@ async function page({ params: { locale } }) {
             <h1 className="mb-8 text-titleSmall text-primary-800 lg:mb-14 lg:text-titleMedium 2xl:mb-14 2xl:text-titleLarge">
               {data?.title}
             </h1>
-
             <ContactUsForm data={data} />
           </div>
         </section>

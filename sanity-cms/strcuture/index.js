@@ -50,6 +50,10 @@ export const structure = (S) =>
         .title('Contact Us')
         .id('contact-page')
         .child(S.document().schemaType('contact-page').documentId('contact-page')),
+      S.listItem()
+        .title('404 / Not Found Page')
+        .id('notFoundPage')
+        .child(S.document().schemaType('notFoundPage').documentId('notFoundPage')),
 
       S.divider(),
 

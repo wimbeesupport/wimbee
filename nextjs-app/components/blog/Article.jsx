@@ -8,7 +8,7 @@ function Article({ content }) {
         <h1 className="mb-8 max-w-5xl text-5xl text-primary-800 lg:mb-10 lg:text-7xl 2xl:mb-20">
           {content?.title}
         </h1>
-        <div className="text-primary-500">
+        <div className="text-primary-500 article-content">
           <PortableText
             value={content.body}
             components={myPortableTextComponents}
