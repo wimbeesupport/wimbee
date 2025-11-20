@@ -46,7 +46,7 @@ async function NavigationWrapper({ locale = "en" }) {
       items:
         boostersData?.products.map((item) => ({
           label: item.name,
-          href: `/${item.url}`,
+          href: `${item.url}`,
         })) || [],
       dropDown: {
         title: boostersData?.title,
