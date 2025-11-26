@@ -119,7 +119,18 @@ export const casestudiesPageQuery = groq`*[_type == "case-studies-page"][0]{
     categories[]-> {
       "title": coalesce(title[_key == $locale][0].value, title[_key == "en"][0].value),
     },
+    industries[]-> {
+      "title": coalesce(title[_key == $locale][0].value, title[_key == "en"][0].value),
+    },
     summary
+  },
+  "allCategories": *[_type == "category"] {
+    "title": coalesce(title[_key == $locale][0].value, title[_key == "en"][0].value),
+    _id
+  },
+  "allIndustries": *[_type == "industry"] {
+    "title": coalesce(title[_key == $locale][0].value, title[_key == "en"][0].value),
+    _id
   }
 }`;
 
@@ -269,6 +280,9 @@ export const caseStudiesSectionQuery = groq`*[_type == "case-studies-section"][0
           categories[]-> {
             "title": coalesce(title[_key == $locale][0].value, title[_key == "en"][0].value),
           },
+          industries[]-> {
+            "title": coalesce(title[_key == $locale][0].value, title[_key == "en"][0].value),
+          },
           summary
         }
     }`;
@@ -340,6 +354,9 @@ export const singleExpertiseQuery = groq`
       categories[]-> {
         "title": coalesce(title[_key == $locale][0].value, title[_key == "en"][0].value),
       },
+      industries[]-> {
+        "title": coalesce(title[_key == $locale][0].value, title[_key == "en"][0].value),
+      },
       summary
     }
   },
@@ -367,6 +384,9 @@ export const singleSectorQuery = groq`*[_type == "sector" && slug.current == $sl
       "slug": slug.current,
       language,
       categories[]-> {
+        "title": coalesce(title[_key == $locale][0].value, title[_key == "en"][0].value),
+      },
+      industries[]-> {
         "title": coalesce(title[_key == $locale][0].value, title[_key == "en"][0].value),
       },
       summary

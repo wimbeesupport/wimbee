@@ -59,7 +59,13 @@ async function page({ params: { locale } }) {
       <main>
         <div className="pt-16">
           <NavigationWrapper locale={locale} />
-          <SplitSection content={data} type="case-studies" variant="light" />
+          <SplitSection
+            content={data}
+            type="case-studies"
+            variant="light"
+            allCategories={data?.allCategories}
+            allIndustries={data?.allIndustries}
+          />
         </div>
         <Newsletter locale={locale} />
         <InfoSection locale={locale} />
