@@ -1,4 +1,4 @@
-import {CogIcon, DocumentIcon, ListIcon} from '@sanity/icons'
+import { CogIcon, DocumentIcon, ListIcon } from '@sanity/icons'
 
 export const structure = (S) =>
   S.list()
@@ -93,6 +93,7 @@ export const structure = (S) =>
       S.divider(),
 
       S.documentTypeListItem('category').title('Categories').icon(ListIcon),
+      S.documentTypeListItem('industry').title('Industries').icon(ListIcon),
       S.documentTypeListItem('post').title('Posts').icon(DocumentIcon),
       S.documentTypeListItem('case-study').title('Case Studies').icon(DocumentIcon),
       S.documentTypeListItem('expertise').title('Expertises').icon(DocumentIcon),

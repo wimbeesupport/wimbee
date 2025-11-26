@@ -1,4 +1,4 @@
-import {defineField, defineType} from 'sanity'
+import { defineField, defineType } from 'sanity'
 
 export default defineType({
   name: 'case-study',
@@ -23,7 +23,13 @@ export default defineType({
       name: 'categories',
       title: 'Categories',
       type: 'array',
-      of: [{type: 'reference', to: {type: 'category'}}],
+      of: [{ type: 'reference', to: { type: 'category' } }],
+    }),
+    defineField({
+      name: 'industries',
+      title: 'Industries',
+      type: 'array',
+      of: [{ type: 'reference', to: { type: 'industry' } }],
     }),
     defineField({
       name: 'publishedAt',

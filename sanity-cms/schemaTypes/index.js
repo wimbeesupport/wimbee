@@ -26,6 +26,8 @@ import link from './link'
 import seo from './seo'
 import notFoundPage from './notFoundPage';
 
+import industry from './industry'
+
 export const schemaTypes = [
   settings,
   home,
@@ -45,6 +47,7 @@ export const schemaTypes = [
   footer,
   post,
   category,
+  industry,
   caseStudy,
   expertise,
   sector,
