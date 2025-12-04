@@ -62,6 +62,14 @@ export async function generateMetadata({ params: { locale } }) {
   };
 }
 
+export function generateViewport() {
+  return {
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 5,
+  };
+}
+
 export function generateStaticParams() {
   return i18nConfig.locales.map((locale) => ({ locale }));
 }
@@ -72,10 +80,10 @@ export default function RootLayout({ children, params: { locale } }) {
   const policyHref = `/${locale}/privacy-policy`;
 
   return (
-    <html lang={locale} dir={dir(locale)}>
+    <html lang={locale} dir={dir(locale)} className="max-w-screen overflow-x-hidden">
       <body
         suppressHydrationWarning={true}
-        className={`${modernGothic.variable} ${modernGothicMono.variable} bg-light-200 font-main antialiased`}
+        className={`${modernGothic.variable} ${modernGothicMono.variable} bg-light-200 font-main antialiased overflow-x-hidden`}
       >
         {children}
         <CookieConsent locale={locale} initialOpen={initialOpen} policyHref={policyHref} />

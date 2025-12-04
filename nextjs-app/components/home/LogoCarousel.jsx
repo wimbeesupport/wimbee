@@ -10,7 +10,7 @@ export default function LogoCarousel({ logos }) {
       <div className="relative py-6 lg:py-12">
         <div className="flex animate-scroll">
           {/* First set of logos */}
-          <div className="flex min-w-full shrink-0 items-center justify-around gap-8 px-4">
+          <div className="flex w-full shrink-0 items-center justify-around gap-8 px-4">
             {logos.map((logo, index) => (
               <div
                 key={`logo-1-${index}`}
@@ -26,7 +26,7 @@ export default function LogoCarousel({ logos }) {
             ))}
           </div>
           {/* Duplicate set of logos for seamless scrolling */}
-          <div className="flex min-w-full shrink-0 items-center justify-around gap-8 px-4">
+          <div className="flex w-full shrink-0 items-center justify-around gap-8 px-4">
             {logos.map((logo, index) => (
               <div
                 key={`logo-2-${index}`}

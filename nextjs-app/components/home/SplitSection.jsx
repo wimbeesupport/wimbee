@@ -163,8 +163,8 @@ function SplitSection({
 
         <div
           className={`flex items-start justify-between gap-6 lg:gap-20 ${flipped
-              ? "flex-col-reverse lg:flex-row-reverse"
-              : "flex-col lg:flex-row"
+            ? "flex-col-reverse lg:flex-row-reverse"
+            : "flex-col lg:flex-row"
             }`}
         >
           <div className="w-full text-primary-800 2xl:w-[720px]">
@@ -181,7 +181,7 @@ function SplitSection({
               return (
                 <div
                   key={index}
-                  className={`flex items-start justify-between gap-6 border-b py-4 ${variant === "primary" ? "border-[#97CAFE]" : "border-primary-800"}`}
+                  className={`flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4 lg:gap-6 border-b py-4 ${variant === "primary" ? "border-[#97CAFE]" : "border-primary-800"}`}
                   onMouseEnter={() => !isInitialLoad && setHoveredIndex(index)}
                   onMouseLeave={() => !isInitialLoad && setHoveredIndex(null)}
                 >
@@ -206,22 +206,24 @@ function SplitSection({
                       </p>
                     </div>
                   </div>
-                  {post?.categories?.map((category, i) => (
-                    <span
-                      key={`cat-${i}`}
-                      className={`w-fit whitespace-nowrap rounded-custom p-2 font-mono text-xs uppercase text-primary-700 transition-colors duration-200 ease-in-out lg:text-sm 2xl:text-lg ${categoryStyles}`}
-                    >
-                      {category.title}
-                    </span>
-                  ))}
-                  {post?.industries?.map((industry, i) => (
-                    <span
-                      key={`ind-${i}`}
-                      className={`w-fit whitespace-nowrap rounded-custom p-2 font-mono text-xs uppercase text-primary-700 transition-colors duration-200 ease-in-out lg:text-sm 2xl:text-lg ${categoryStyles}`}
-                    >
-                      {industry.title}
-                    </span>
-                  ))}
+                  <div className="flex flex-wrap gap-2 lg:flex-col lg:items-end">
+                    {post?.categories?.map((category, i) => (
+                      <span
+                        key={`cat-${i}`}
+                        className={`w-fit whitespace-nowrap rounded-custom p-2 font-mono text-xs uppercase text-primary-700 transition-colors duration-200 ease-in-out lg:text-sm 2xl:text-lg ${categoryStyles}`}
+                      >
+                        {category.title}
+                      </span>
+                    ))}
+                    {post?.industries?.map((industry, i) => (
+                      <span
+                        key={`ind-${i}`}
+                        className={`w-fit whitespace-nowrap rounded-custom p-2 font-mono text-xs uppercase text-primary-700 transition-colors duration-200 ease-in-out lg:text-sm 2xl:text-lg ${categoryStyles}`}
+                      >
+                        {industry.title}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               );
             })}

@@ -128,9 +128,12 @@ function Navigation({ menu, content }) {
             {navIsOpen ? <IoClose size={28} /> : <IoMenu size={28} />}
           </button>
           <div
-            className={`absolute left-1/2 top-16 z-50 w-[95%] -translate-x-1/2 rounded-custom bg-light-300 px-3 py-2 transition-all duration-300 ease-in-out lg:hidden ${navIsOpen
-              ? "translate-y-0 opacity-100"
-              : "pointer-events-none -translate-y-4 opacity-0"
+            className={`fixed left-4 right-4 top-24 z-50 rounded-custom bg-light-300 px-3 py-2
+                        transition-all duration-300 ease-in-out lg:hidden
+                        max-h-[calc(100vh-7rem)] overflow-y-auto
+                        ${navIsOpen
+                ? "translate-y-0 opacity-100"
+                : "pointer-events-none -translate-y-4 opacity-0"
               }`}
           >
             {menu.map((item, index) => (

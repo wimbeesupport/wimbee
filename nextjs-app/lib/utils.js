@@ -4,6 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { twMerge } from "tailwind-merge";
 
+import Carousel from "@/components/Carousel";
+
 export function cn(...inputs) {
   return twMerge(clsx(inputs));
 }
@@ -11,6 +13,9 @@ export function cn(...inputs) {
 //
 export const myPortableTextComponents = {
   types: {
+    carousel: ({ value }) => {
+      return <Carousel value={value} />;
+    },
     image: ({ value }) => {
       return (
         <>
@@ -144,6 +149,9 @@ export const myPortableTextComponents = {
 
 export const MiniPortableText = {
   types: {
+    carousel: ({ value }) => {
+      return <Carousel value={value} />;
+    },
     image: ({ value }) => {
       return (
         <Image
