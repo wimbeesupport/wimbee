@@ -15,9 +15,9 @@ export const structure = (S) =>
         .id('home')
         .child(S.document().schemaType('home').documentId('home')),
       S.listItem()
-        .title('Boosters')
-        .id('boosters')
-        .child(S.document().schemaType('boosters').documentId('boosters')),
+        .title('Booster')
+        .id('booster-page')
+        .child(S.document().schemaType('booster-page').documentId('booster-page')),
       S.listItem()
         .title('Legal Mentions')
         .id('legalPage')
@@ -98,4 +98,5 @@ export const structure = (S) =>
       S.documentTypeListItem('case-study').title('Case Studies').icon(DocumentIcon),
       S.documentTypeListItem('expertise').title('Expertises').icon(DocumentIcon),
       S.documentTypeListItem('sector').title('Sectors').icon(DocumentIcon),
+      S.documentTypeListItem('booster').title('Boosters').icon(DocumentIcon),
     ])

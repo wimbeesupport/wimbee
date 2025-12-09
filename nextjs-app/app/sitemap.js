@@ -4,6 +4,7 @@ import {
   allExpertisesQuery,
   allPostsQuery,
   allSectorsQuery,
+  allBoostersQuery,
 } from "@/sanity/groq";
 
 const locales = ["en", "fr"];
@@ -48,11 +49,12 @@ export default async function sitemap() {
     }))
   );
 
-  const [posts, caseStudies, expertises, sectors] = await Promise.all([
+  const [posts, caseStudies, expertises, sectors, boosters] = await Promise.all([
     sanityFetch({ query: allPostsQuery, tags: ["post", "blog"] }),
     sanityFetch({ query: allCasestudiesquery, tags: ["case-study"] }),
     sanityFetch({ query: allExpertisesQuery, tags: ["expertise"] }),
     sanityFetch({ query: allSectorsQuery, tags: ["sector"] }),
+    sanityFetch({ query: allBoostersQuery, tags: ["booster"] }),
   ]);
 
 
@@ -78,6 +80,12 @@ export default async function sitemap() {
     ...sectors.map((s) => ({
       url: localePath(s.language ?? "en", `sectors/${s.slug}`),
       lastModified: new Date(s._updatedAt ?? Date.now()),
+      changeFrequency: "weekly",
+      priority: 0.7,
+    })),
+    ...boosters.map((b) => ({
+      url: localePath(b.language ?? "en", `boosters/${b.slug}`),
+      lastModified: new Date(b._updatedAt ?? Date.now()),
       changeFrequency: "weekly",
       priority: 0.7,
     })),

@@ -5,6 +5,8 @@ import footer from './footer'
 import newsletter from './newsletter'
 import home from './home'
 import boosters from './boosters'
+import booster from './booster'
+import boosterPage from './booster-page'
 import blog from './blog'
 import expertise from './expertise'
 import sector from './sector'
@@ -32,6 +34,8 @@ export const schemaTypes = [
   settings,
   home,
   boosters,
+  booster,
+  boosterPage,
   about,
   blog,
   caseStudiesPage,

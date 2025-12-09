@@ -1,4 +1,4 @@
-import { navigationQuery, boostersquery } from "@/sanity/groq";
+import { navigationQuery } from "@/sanity/groq";
 import { sanityFetch } from "@/sanity/client";
 import Navigation from "./Navigation";
 
@@ -6,13 +6,7 @@ async function NavigationWrapper({ locale = "en" }) {
   const nav = await sanityFetch({
     query: navigationQuery,
     qParams: { locale },
-    tags: ["settings", "sector", "expertise"],
-  });
-
-  const boostersData = await sanityFetch({
-    query: boostersquery,
-    qParams: { locale },
-    tags: ["booster"],
+    tags: ["settings", "sector", "expertise", "booster"],
   });
 
   const menu = [
@@ -41,15 +35,15 @@ async function NavigationWrapper({ locale = "en" }) {
       },
     },
     {
-      title: boostersData?.title || "Boosters",
+      title: nav?.navigation?.boostersLink?.title || "Booster",
       type: "boosters",
       items:
-        boostersData?.products.map((item) => ({
-          label: item.name,
-          href: `${item.url}`,
+        nav?.navigation?.navBoosters?.map((item) => ({
+          label: item.title,
+          href: `/boosters/${item.slug}`,
         })) || [],
       dropDown: {
-        title: boostersData?.title,
+        title: nav?.navigation?.boostersLink?.dropdownTitle,
       },
     },
     ...nav?.navigation?.links,

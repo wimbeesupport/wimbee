@@ -85,18 +85,6 @@ export const aboutQuery = groq`*[_type == "about"][0]{
   "contentSection": coalesce(contentSection[$locale], contentSection["en"]),
 }`;
 
-export const boostersquery = groq`*[_type == "boosters"][0] {
-  "tag": coalesce(tag[_key == $locale][0].value, tag[_key == "en"][0].value),
-  "title": coalesce(title[_key == $locale][0].value, title[_key == "en"][0].value),
-  "description": coalesce(description[_key == $locale][0].value, description[_key == "en"][0].value),
-  products[] {
-    "name": coalesce(name[_key == $locale][0].value, name[_key == "en"][0].value),
-    "description": coalesce(description[$locale], description["en"]),
-    "imageUrl": image.asset->url,
-    url
-  }
-}`;
-
 export const blogPageQuery = groq`*[_type == "blog"][0]{
   "tag": coalesce(tag[_key == $locale][0].value, tag[_key == "en"][0].value),
   "imageUrl": image.asset->url,
@@ -115,7 +103,8 @@ export const casestudiesPageQuery = groq`*[_type == "case-studies-page"][0]{
   "imageUrl": image.asset->url,
   "items": *[_type == "case-study" && language == $locale] | order(publishedAt desc) {
     title,
-    slug,
+    "slug": slug.current,
+    language,
     categories[]-> {
       "title": coalesce(title[_key == $locale][0].value, title[_key == "en"][0].value),
     },
@@ -126,11 +115,23 @@ export const casestudiesPageQuery = groq`*[_type == "case-studies-page"][0]{
   },
   "allCategories": *[_type == "category"] {
     "title": coalesce(title[_key == $locale][0].value, title[_key == "en"][0].value),
-    _id
+    "slug": slug.current
   },
   "allIndustries": *[_type == "industry"] {
     "title": coalesce(title[_key == $locale][0].value, title[_key == "en"][0].value),
-    _id
+    "slug": slug.current
+  }
+}`;
+
+export const boosterPageQuery = groq`*[_type == "booster-page"][0]{
+  "tag": coalesce(tag[_key == $locale][0].value, tag[_key == "en"][0].value),
+  "title": coalesce(title[_key == $locale][0].value, title[_key == "en"][0].value),
+  "imageUrl": image.asset->url,
+  "items": *[_type == "booster" && language == $locale] | order(publishedAt desc) {
+    title,
+    "slug": slug.current,
+    language,
+    body
   }
 }`;
 
@@ -417,12 +418,20 @@ export const navigationQuery = groq`*[_type == "settings"][0] {
       title,
       "slug": slug.current
     },
+    "navBoosters": *[_type == "booster" && isNavigation == true && language == $locale] | order(publishedAt asc) {
+      title,
+      "slug": slug.current
+    },
     expertisesLink {
       "title": coalesce(title[_key == $locale][0].value, title[_key == "en"][0].value),
       "dropdownTitle": coalesce(dropdownTitle[_key == $locale][0].value, dropdownTitle[_key == "en"][0].value),
       "imageUrl": dropdownImage.asset->url
     },
     sectorsLink {
+      "title": coalesce(title[_key == $locale][0].value, title[_key == "en"][0].value),
+      "dropdownTitle": coalesce(dropdownTitle[_key == $locale][0].value, dropdownTitle[_key == "en"][0].value),
+    },
+    boostersLink {
       "title": coalesce(title[_key == $locale][0].value, title[_key == "en"][0].value),
       "dropdownTitle": coalesce(dropdownTitle[_key == $locale][0].value, dropdownTitle[_key == "en"][0].value),
     },
@@ -473,4 +482,45 @@ export const notFoundPageQuery = groq`*[_type == "notFoundPage"][0]{
   "buttonLabel": coalesce(buttonLabel[_key == $locale][0].value, buttonLabel[_key == "en"][0].value),
   "svgUrl": illustration.asset->url
 }`
+
+// All Boosters
+export const allBoostersQuery = groq`
+    *[_type == "booster"] {
+      "slug": slug.current,
+      _updatedAt,
+      language,
+    }
+  `;
+
+// Single Booster
+export const singleBoosterQuery = groq`*[_type == "booster" && slug.current == $slug][0]  {
+  title,
+  "slug": slug.current,
+  body,
+  "allLinks": *[_type == "booster" && language == $locale] | order(publishedAt asc)  {
+    title,
+    "slug": slug.current
+  },
+  casesSection {
+    tag,
+    "imageUrl": image.asset->url,
+    items[]->{
+      title,
+      "slug": slug.current,
+      language,
+      categories[]-> {
+        "title": coalesce(title[_key == $locale][0].value, title[_key == "en"][0].value),
+      },
+      industries[]-> {
+        "title": coalesce(title[_key == $locale][0].value, title[_key == "en"][0].value),
+      },
+      summary
+    }
+  },
+  "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{
+    title,
+    slug,
+    language
+  }
+}`;
 

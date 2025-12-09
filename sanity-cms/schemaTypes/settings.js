@@ -1,11 +1,11 @@
-import {defineField, defineType} from 'sanity'
+import { defineField, defineType } from 'sanity'
 
 export default defineType({
   name: 'settings',
   title: 'Site Settings',
   type: 'document',
   preview: {
-    prepare({}) {
+    prepare({ }) {
       return {
         title: 'Settings', // Assuming 'en' is your default language
         subtitle: 'Settings Content',
@@ -79,6 +79,24 @@ export default defineType({
               title: 'Title',
               type: 'internationalizedArrayString',
               initialValue: 'Sectors',
+            }),
+            defineField({
+              name: 'dropdownTitle',
+              title: 'Dropdown Title',
+              type: 'internationalizedArrayString',
+            }),
+          ],
+        }),
+        defineField({
+          name: 'boostersLink',
+          title: 'Boosters Link',
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'title',
+              title: 'Title',
+              type: 'internationalizedArrayString',
+              initialValue: 'Booster',
             }),
             defineField({
               name: 'dropdownTitle',
