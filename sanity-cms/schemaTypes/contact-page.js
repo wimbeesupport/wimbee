@@ -1,11 +1,11 @@
-import {defineField, defineType} from 'sanity'
+import { defineField, defineType } from 'sanity'
 
 export default defineType({
   name: 'contact-page',
   title: 'Contact Us Page',
   type: 'document',
   preview: {
-    prepare({}) {
+    prepare({ }) {
       return {
         title: 'Contact us Page', // Assuming 'en' is your default language
         subtitle: 'Contact us Page Content',
@@ -65,6 +65,11 @@ export default defineType({
     defineField({
       name: 'submitBtnText',
       title: 'Text for submit button',
+      type: 'internationalizedArrayString',
+    }),
+    defineField({
+      name: 'privacyPolicyText',
+      title: 'Privacy Policy Text',
       type: 'internationalizedArrayString',
     }),
     defineField({

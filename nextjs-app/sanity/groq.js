@@ -204,7 +204,8 @@ export const contactPageQuery = groq`*[_type == "contact-page"][0]{
     type,
     required
   },
-  "submitBtnText": coalesce(submitBtnText[_key == $locale][0].value, submitBtnText[_key == "en"][0].value)
+  "submitBtnText": coalesce(submitBtnText[_key == $locale][0].value, submitBtnText[_key == "en"][0].value),
+  "privacyPolicyText": coalesce(privacyPolicyText[_key == $locale][0].value, privacyPolicyText[_key == "en"][0].value)
 }`;
 
 // Reusable sections

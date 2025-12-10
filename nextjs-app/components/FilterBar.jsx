@@ -3,12 +3,14 @@
 import { useState, useRef, useEffect } from "react";
 import { Filter, X, Check, ChevronDown } from "lucide-react";
 import { Button } from "./ui/button";
+import { useTranslation } from "react-i18next";
 
 export default function FilterBar({
     categories = [],
     industries = [],
     onFilterChange,
 }) {
+    const { t } = useTranslation();
     const [isOpen, setIsOpen] = useState(false);
     const [selectedCategories, setSelectedCategories] = useState([]);
     const [selectedIndustries, setSelectedIndustries] = useState([]);
@@ -79,7 +81,7 @@ export default function FilterBar({
                         {/* Categories */}
                         <div>
                             <h3 className="mb-3 text-sm font-semibold uppercase tracking-wider text-gray-500">
-                                Categories
+                                {t("expertises", { ns: "home" })}
                             </h3>
                             <div className="flex flex-wrap gap-2">
                                 {categories.map((cat) => (
@@ -103,7 +105,7 @@ export default function FilterBar({
                         {/* Industries */}
                         <div>
                             <h3 className="mb-3 text-sm font-semibold uppercase tracking-wider text-gray-500">
-                                Industries
+                                {t("sectors", { ns: "home" })}
                             </h3>
                             <div className="flex flex-wrap gap-2">
                                 {industries.map((ind) => (

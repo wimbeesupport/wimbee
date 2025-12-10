@@ -76,10 +76,10 @@ function ContactUsForm({ data }) {
         // dense inputs; textarea stays taller
         const inputClass = [
           "w-full font-medium focus:outline-none",
-          isCompact ? "h-8 px-3 text-xs leading-tight" : "h-9 px-3 text-sm",
-          "text-[#222] !placeholder:text-transparent",
+          isCompact ? "h-8 px-3 leading-tight" : "h-9 px-3",
+          "text-[#222]",
           // remove any inherited large text
-          "!text-xs lg:!text-xs"
+          "text-base"
         ].join(" ");
 
         return (
@@ -107,10 +107,9 @@ function ContactUsForm({ data }) {
                   className={[
                     "w-full resize-none overflow-hidden",
                     "px-3 py-3",
-                    "text-base lg:text-lg",
+                    "text-base",
                     "leading-6 font-medium",
                     "focus:outline-none focus:ring-2 focus:ring-primary-800/30",
-                    "!placeholder:text-transparent",
                     "text-[#222]"
                   ].join(" ")}
                   {...register(item.label, {
@@ -139,7 +138,7 @@ function ContactUsForm({ data }) {
           })}
         />
         <label htmlFor="agreeToPolicy" className="text-sm text-gray-600">
-          {t("agreeToPolicy", { ns: "contact" })}
+          {data?.privacyPolicyText || t("agreeToPolicy", { ns: "contact" })}
         </label>
       </div>
       {errors.agreeToPolicy && (

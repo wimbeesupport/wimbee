@@ -22,9 +22,11 @@ export const myPortableTextComponents = {
           <Image
             src={urlFor(value).url()}
             alt="Image"
-            width={800}
-            height={800}
-            className="mb-8 aspect-square w-full rounded-custom object-cover object-center lg:hidden"
+            width={0}
+            height={0}
+            sizes="100vw"
+            style={{ width: "100%", height: "auto" }}
+            className="mb-8 w-full rounded-custom lg:hidden"
           />
           <Image
             src={urlFor(value).url()}
@@ -41,6 +43,9 @@ export const myPortableTextComponents = {
   marks: {
     em: ({ children }) => (
       <em className="font-medium text-primary-800">{children}</em>
+    ),
+    strong: ({ children }) => (
+      <strong className="font-medium text-primary-800">{children}</strong>
     ),
 
     link: ({ children, value }) => {
@@ -115,9 +120,9 @@ export const myPortableTextComponents = {
     // Ex. 1: customizing common list types
     bullet: ({ children }) => (
       <ul
+        className="text-base leading-relaxed lg:text-xl"
         style={{
           paddingLeft: "1.125rem",
-          fontSize: "1.15rem",
           maxWidth: "56rem",
           display: "flex",
           flexDirection: "column",
@@ -130,9 +135,9 @@ export const myPortableTextComponents = {
     ),
     number: ({ children }) => (
       <ol
+        className="text-base leading-relaxed lg:text-xl"
         style={{
           paddingLeft: "1.125rem",
-          fontSize: "1.15rem",
           maxWidth: "56rem",
           display: "flex",
           flexDirection: "column",
@@ -170,6 +175,11 @@ export const MiniPortableText = {
       <em className="mx-auto max-w-4xl font-medium text-primary-800">
         {children}
       </em>
+    ),
+    strong: ({ children }) => (
+      <strong className="mx-auto max-w-4xl font-medium text-primary-800">
+        {children}
+      </strong>
     ),
 
     link: ({ children, value }) => {
@@ -244,9 +254,9 @@ export const MiniPortableText = {
     // Ex. 1: customizing common list types
     bullet: ({ children }) => (
       <ul
+        className="mx-auto max-w-4xl text-base leading-relaxed lg:text-xl"
         style={{
           paddingLeft: "1.125rem",
-          fontSize: "1.15rem",
           maxWidth: "56rem",
           display: "flex",
           flexDirection: "column",
@@ -259,9 +269,9 @@ export const MiniPortableText = {
     ),
     number: ({ children }) => (
       <ol
+        className="mx-auto max-w-4xl text-base leading-relaxed lg:text-xl"
         style={{
           paddingLeft: "1.125rem",
-          fontSize: "1.15rem",
           maxWidth: "56rem",
           display: "flex",
           flexDirection: "column",
