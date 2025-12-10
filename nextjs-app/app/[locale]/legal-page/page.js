@@ -25,7 +25,7 @@ export async function generateMetadata({ params: { locale } }) {
   };
 }
 
-export const revalidate = 2592000;
+export const revalidate = 0;
 
 const i18nNamespaces = ["common"];
 export default async function Page({ params: { locale } }) {

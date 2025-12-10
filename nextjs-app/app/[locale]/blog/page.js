@@ -29,7 +29,7 @@ export async function generateMetadata({ params: { locale } }) {
   };
 }
 
-export const revalidate = 2592000; // 30 days in seconds
+export const revalidate = 0;
 
 const i18nNamespaces = ["blog", "post", "errors"];
 
