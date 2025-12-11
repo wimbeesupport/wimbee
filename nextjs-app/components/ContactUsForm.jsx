@@ -7,6 +7,7 @@ import { useTranslation } from "react-i18next";
 import { useEffect, useRef } from "react";
 
 import useWeb3Forms from "@web3forms/react";
+import { toast } from "sonner";
 
 function ContactUsForm({ data }) {
   const { t } = useTranslation();
@@ -33,7 +34,7 @@ function ContactUsForm({ data }) {
       subject: "New_Quote_Request_WIMBEETECH.COM",
     },
     onSuccess: (msg, data) => {
-      // router.push("success");
+      toast.success("Message sent successfully!");
       reset();
     },
     onError: (msg, data) => { },

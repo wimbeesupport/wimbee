@@ -8,6 +8,7 @@ import { sanityFetch } from "@/sanity/client";
 import { cookies } from "next/headers";
 import Script from "next/script";
 import CookieConsent from "@/components/CookieConsent";
+import { Toaster } from "sonner";
 
 export const modernGothic = localFont({
   src: [
@@ -87,6 +88,7 @@ export default function RootLayout({ children, params: { locale } }) {
       >
         {children}
         <CookieConsent locale={locale} initialOpen={initialOpen} policyHref={policyHref} />
+        <Toaster />
       </body>
     </html>
   );
