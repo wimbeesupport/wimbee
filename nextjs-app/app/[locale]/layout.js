@@ -9,6 +9,7 @@ import { cookies } from "next/headers";
 import Script from "next/script";
 import CookieConsent from "@/components/CookieConsent";
 import { Toaster } from "sonner";
+import { Analytics } from "@vercel/analytics/next"
 
 export const modernGothic = localFont({
   src: [
@@ -44,6 +45,7 @@ export async function generateMetadata({ params: { locale } }) {
     query: settingsQuery,
     qParams: { locale },
     tags: ["settings"],
+    revalidate: 60 * 60,
   });
 
   return {

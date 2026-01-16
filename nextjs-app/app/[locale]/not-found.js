@@ -1,7 +1,7 @@
+"use client";
+
 import Link from "next/link";
-import { headers } from "next/headers";
-import { sanityFetch } from "@/sanity/client";
-import { notFoundPageQuery } from "@/sanity/groq";
+import { usePathname } from "next/navigation";
 
 const SUPPORTED_LOCALES = ["en", "fr"];
 
@@ -19,38 +19,27 @@ function getLocaleFromPath(pathname) {
   return "en";
 }
 
-export default async function NotFound() {
-  // Get current path from headers (Next 14)
-  const headersList = headers();
-  const nextUrl = headersList.get("next-url") || "/";
-  const locale = getLocaleFromPath(nextUrl);
-
-  // Fetch content from Sanity
-  const data = await sanityFetch({
-    query: notFoundPageQuery,
-    qParams: { locale },
-    tags: ["notFound"],
-  });
+export default function NotFound() {
+  const pathname = usePathname();
+  const locale = getLocaleFromPath(pathname);
 
   const fallbackTexts =
     locale === "fr"
       ? {
-          title: "Cette page est introuvable 😓",
-          subtitle:
-            "La page que vous cherchez n'existe pas ou a été déplacée.",
-          buttonLabel: "Retour à l'accueil",
-        }
+        title: "Cette page est introuvable 😓",
+        subtitle:
+          "La page que vous cherchez n'existe pas ou a été déplacée.",
+        buttonLabel: "Retour à l'accueil",
+      }
       : {
-          title: "This page could not be found 😓",
-          subtitle:
-            "The page you're looking for doesn't exist or has been moved.",
-          buttonLabel: "Go back home",
-        };
+        title: "This page could not be found 😓",
+        subtitle:
+          "The page you're looking for doesn't exist or has been moved.",
+        buttonLabel: "Go back home",
+      };
 
-  const title = data?.title || fallbackTexts.title;
-  const subtitle = data?.subtitle || fallbackTexts.subtitle;
-  const buttonLabel = data?.buttonLabel || fallbackTexts.buttonLabel;
-  const illustrationUrl = data?.svgUrl;
+  const { title, subtitle, buttonLabel } = fallbackTexts;
+  const illustrationUrl = null;
 
   const homeHref = locale === "en" ? "/" : `/${locale}`;
 
